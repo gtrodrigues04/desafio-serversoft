@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Post, Put, UseGuards } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { UsersService } from "./users.service";
+import { JwtAuthGuard } from "src/auth/jwt-auth-guard";
 
 @Controller("api/users")
 export class UsersController {
@@ -11,7 +12,8 @@ export class UsersController {
   async index() {
     return this.usersService.findAll();
   }
-
+  
+  @UseGuards(JwtAuthGuard)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async store(@Body() body: CreateUserDto) {
