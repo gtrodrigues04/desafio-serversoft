@@ -1,23 +1,26 @@
-import { Injectable, NotFoundException, UseGuards } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PlaylistEntity } from './playlist.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindConditions, FindOneOptions, Repository } from 'typeorm';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
-import { MusicsService } from '../musics/musics.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-
 @Injectable()
 export class PlaylistService {
   constructor(
     @InjectRepository(PlaylistEntity)
     private readonly playlistRepository: Repository<PlaylistEntity>,
-    private readonly musicsService: MusicsService
   ) {}
 
   async findAll() {
     return await this.playlistRepository.find({
       select: ['name', 'musics', 'userId'],
+    });
+  }
+
+  async findPlaylistByUserId(id: number) {
+    return await this.playlistRepository.find({
+      select: ['name', 'musics', 'userId'],
+      where: { id }
     });
   }
 
@@ -37,14 +40,25 @@ export class PlaylistService {
     return await this.playlistRepository.save(playlist);
   }
 
-  async update(id: string, data: UpdatePlaylistDto) {
+  async update(id: number, data: UpdatePlaylistDto) {
     const playlist = await this.findOneOrFail({ id });
     this.playlistRepository.merge(playlist, data);
     return await this.playlistRepository.save(playlist);
   }
 
-  async destroy(id: string) {
+  async updateIfUserPlayList(userId, id: number, data: UpdatePlaylistDto) {
+    const playlist = await this.findOneOrFail({ id, userId: userId});
+    this.playlistRepository.merge(playlist, data);
+    return await this.playlistRepository.save(playlist);
+  }
+
+  async destroy(id: number) {
     await this.playlistRepository.findOneOrFail({ id });
+    this.playlistRepository.softDelete({ id });
+  }
+
+  async destroyIfUserPlaylist(userId, id: number) {
+    await this.playlistRepository.findOneOrFail({ id, userId: userId });
     this.playlistRepository.softDelete({ id });
   }
 }

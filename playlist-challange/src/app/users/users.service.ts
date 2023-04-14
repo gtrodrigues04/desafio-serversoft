@@ -4,14 +4,13 @@ import { FindConditions, FindOneOptions, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersEntity } from './users.entity';
-
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UsersEntity)
     private readonly usersRepository: Repository<UsersEntity>,
   ) {}
-
+  
   async findAll() {
     return await this.usersRepository.find({
       select: ['id', 'firstName', 'lastName', 'email'],
@@ -34,13 +33,13 @@ export class UsersService {
     return await this.usersRepository.save(user);
   }
 
-  async update(id: string, data: UpdateUserDto) {
+  async update(id: number, data: UpdateUserDto) {
     const user = await this.findOneOrFail({ id });
     this.usersRepository.merge(user, data);
     return await this.usersRepository.save(user);
   }
 
-  async destroy(id: string) {
+  async destroy(id: number) {
     await this.usersRepository.findOneOrFail({ id });
     this.usersRepository.softDelete({ id });
   }

@@ -7,12 +7,13 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Role } from './enums/role.enum';
 import { hashSync } from 'bcrypt';
 
 @Entity({ name: 'users' })
 export class UsersEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column({ name: 'first_name' })
   firstName: string;
@@ -25,6 +26,13 @@ export class UsersEntity {
 
   @Column()
   password: string;
+
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.USER,
+  })
+  role: Role;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
