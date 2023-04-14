@@ -26,9 +26,11 @@
 <p>Deleta uma playlist do sistema, necessita estar autenticado, caso a role seja 'admin', poderá excluir qualquer playlist cadastrada, caso a role seja 'user', excluirá somente se a playlist pertencer ao usuário autenticado</p>   
 <p>DELETE - localhost:3000/api/playlist/{id}</p> 
 
+<h2>Rota de login:</h2>
+
+POST - localhost:3000/api/auth/login
 
 <h1>Criação do usuário admin:</h2>
-
 Chamar a rota: localhost:3000/api/users, utilizando o verbo "Post", enviando o payload conforme o exemplo a baixo:
 
 {
