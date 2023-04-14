@@ -49,3 +49,7 @@ Para o banco de dados utilizei o PostgreSQL, versão 15.
 
 Para autenticação utilizei JWT, seguindo um tutorial muito prático. Link do tutorial utilizado:
  https://www.youtube.com/watch?v=jMprSQlDLGo
+
+Coloquei o arquivo .env no git ignore para não expor informações sensíveis do meu banco de dados, porém criei um env.exemple com as variáveis de ambiente para ajudar na configuração.
+Incluir no arquivo .env
+JWT_SECRET_KEY=Oy+2QEWX9A06GY1/EzI0prsvZA9eaXMC+BT8sfFTrRM=
