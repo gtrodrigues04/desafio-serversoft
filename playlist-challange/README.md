@@ -31,7 +31,7 @@
 POST - localhost:3000/api/auth/login
 
 Para testar a aplicação eu utilizei o postman, após autenticar, incluí o token gerado na aba "Authorization", na opção Bearer token.
- 
+
 <h1>Criação do usuário admin:</h2>
 Chamar a rota: localhost:3000/api/users, utilizando o verbo "Post", enviando o payload conforme o exemplo a baixo:
 
@@ -45,7 +45,7 @@ Chamar a rota: localhost:3000/api/users, utilizando o verbo "Post", enviando o p
 
 Em caso de criação de usuário cuja role seja "user", não é necessário passar a role no payload, pois o default da role já é a role user.
 
-Para o banco de dados utilizei o PostgreSQL. 
+Para o banco de dados utilizei o PostgreSQL, versão 15. 
 
 Para autenticação utilizei JWT, seguindo um tutorial muito prático. Link do tutorial utilizado:
  https://www.youtube.com/watch?v=jMprSQlDLGo
