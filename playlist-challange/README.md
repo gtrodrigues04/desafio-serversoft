@@ -1,73 +1,47 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+<h1>Rotas da aplicação e suas funções</h1>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<h2>API de Usuários:</h2>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<p>Rota que retorna todos os usuários cadastrados, caso o usuário esteja autenticado e tenha role igual a 'admin'</p>  
+<p>GET - localhost:3000/api/users</p>
+<p>Cadastra um novo usuário no sistema</p>  
+<p>POST - localhost:3000/api/users</p> 
+<p>Busca um usuário, necessita do parametro id, estar autenticado no sistema e possuir a role 'admin'</p>  
+<p>GET - localhost:3000/api/users/{id}</p>
+<p>Edita os dados do usuário cujo id seja mencionado no parametro, necessita estar autenticado no sistema e possuir a role 'admin'</p>   
+<p>PUT - localhost:3000/api/users/{id}</p>
+<p>Deleta um usuário do sistema, necessita estar autenticado no sistema e possuir a role 'admin'</p>   
+<p>DELETE - localhost:3000/api/users/{id}</p> 
 
-## Description
+<h2>API de Playlist:</h2>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<p>Rota que retorna todas as playlists, necessita estar autenticado, caso a role seja 'admin', retorna as playlists de todos usuários, caso seja 'user', apenas as playlists do usuário logado</p>  
+<p>GET - localhost:3000/api/playlist</p>
+<p>Cadastra uma nova playlist, necessita estar autenticado</p>  
+<p>POST - localhost:3000/api/playlist</p> 
+<p>Busca uma playlist por id, necessita estar autenticado, caso a role seja 'admin', poderá trazer qualquer playlist cadastrada, caso a role seja 'user', trará, somente se a playlist pertencer ao usuário autenticado</p>  
+<p>GET - localhost:3000/api/playlist/{id}</p>
+<p>Edita os dados da playlist, necessita estar autenticado, caso a role seja 'admin', poderá editar qualquer playlist cadastrada, caso a role seja 'user', editará somente se a playlist pertencer ao usuário autenticado</p>   
+<p>PUT - localhost:3000/api/playlist/{id}</p>
+<p>Deleta uma playlist do sistema, necessita estar autenticado, caso a role seja 'admin', poderá excluir qualquer playlist cadastrada, caso a role seja 'user', excluirá somente se a playlist pertencer ao usuário autenticado</p>   
+<p>DELETE - localhost:3000/api/playlist/{id}</p> 
 
-## Installation
 
-```bash
-$ yarn install
-```
+<h1>Criação do usuário admin:</h2>
 
-## Running the app
+Chamar a rota: localhost:3000/api/users, utilizando o verbo "Post", enviando o payload conforme o exemplo a baixo:
 
-```bash
-# development
-$ yarn run start
+{
+    "firstName": "admin",
+    "lastName": "admin",
+    "email": "admin@teste.com",
+    "password": "123456",
+    "role": "admin"
+}
 
-# watch mode
-$ yarn run start:dev
+Em caso de criação de usuário cuja role seja "user", não é necessário passar a role no payload, pois o default da role já é a role user.
 
-# production mode
-$ yarn run start:prod
-```
+Para o banco de dados utilizei o PostgreSQL. 
 
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Para autenticação utilizei JWT, seguindo um tutorial muito prático. Link do tutorial utilizado:
+ https://www.youtube.com/watch?v=jMprSQlDLGo
