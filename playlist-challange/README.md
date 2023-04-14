@@ -30,6 +30,8 @@
 
 POST - localhost:3000/api/auth/login
 
+Para testar a aplicação eu utilizei o postman, após autenticar, incluí o token gerado na aba "Authorization", na opção Bearer token.
+ 
 <h1>Criação do usuário admin:</h2>
 Chamar a rota: localhost:3000/api/users, utilizando o verbo "Post", enviando o payload conforme o exemplo a baixo:
 
